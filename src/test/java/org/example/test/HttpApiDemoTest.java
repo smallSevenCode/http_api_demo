@@ -1,6 +1,5 @@
 package org.example.test;
 
-import cn.hutool.core.util.IdUtil;
 import org.example.utils.HTTPUtil;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class HttpApiDemoTest {
 
-    private final static String url = "http://10.18.6.25:8085/xlzxop/v2/creditreport/getEnterprisePersonInfoV5.do";
+    private final static String url = "http://127.0.0.1:8080/xlzxop/v2/***.do";
 
     /**
      * 发送请求
@@ -26,8 +25,7 @@ public class HttpApiDemoTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("xxx", "xxx");
         paramMap.put("yyy", "yyy");
-        paramMap.put("idcard", "110108196902151473");
-        paramMap.put("custSerialNo", IdUtil.simpleUUID());
+        paramMap.put("zzz", "zzz");
         HTTPUtil.post(url, paramMap);
     }
 
