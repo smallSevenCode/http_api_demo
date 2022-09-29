@@ -2,6 +2,7 @@ package org.example.utils;
 
 import cn.hutool.core.codec.Base64Decoder;
 import cn.hutool.core.codec.Base64Encoder;
+import org.example.pojo.Account;
 import sun.misc.BASE64Decoder;
 
 import javax.crypto.Cipher;
@@ -23,17 +24,10 @@ import java.security.spec.X509EncodedKeySpec;
  * 加密算法 RSA/ECB/PKCS1Padding
  * 签名算法 SHA1withRSA
  *
- * @author: 苦瓜不苦
- * @date: 2021/6/9 10:22
+ * @author 苦瓜不苦
+ * @date 2021/6/9 10:22
  **/
 public class RSAHelperUtil {
-
-
-    // 公钥
-    private final static String public_key = "MIIBIjANBgkq***EFAAOCAQ8AMIIBCgKCAQE***Fx6hhwSUxbM9Fa2l5g+***Zby+wlFF/p3TNupd5gDozEw680w+NFXLplrzPvQRnxTjjakY4V5PorhAIRtHz3O5o6qstiqyfYGSDUbEfPLzKjLVrXCv3kDT49d2PAD+03WVt34C3I9/ANrluDH+5BxYB2SiAi8tkpJLAHy7GZQKqxxo0KsaBoECVRCZehyW9w0+1TcqDBVguLYo/D5otk0COc3AqMULUwtqzsu8gYVLwQZr5LgvvFtcQm5E2Kp/54EeHt8PcjbVhpwInldt20WhOjBXjNftemz7JAO6KftWjzi+KzoZqQuRA27hqJeVtIL+5wIDAQAB";
-    // 私钥
-    private final static String private_key = "MIIEvAIBADA***0BAQEFAASCBKYwggSiAgEAAoI***K7HBX/cb/vOU4***uSGL6OLAq95zwabhRSqb528DQSE2GbDiMmJrWGAkhB1YnrY0zItt/7s4f6wwgZFFZaSDh6ZBWQaYmayzceEBhxiw5sRR90vHrmqbBiGMHZWxBHNv9a7hemcmoS5ou48T6Z3CxEkm3DfyPMKqxQag10ugSlTdUj3xzRIMH1J8y2DCRGPrGqpREA5aW+L+xf8t19UPqLhhKeprmbwiBbIaZk4IS+TJytxv3Flch2lRORxP1T8j+QRaxP1Pd2lSwrW2ZUmSW88881lXkuorKySz8Sl/hXxPwJdBV4kIEnCzvrXDRqBqk2p9AgMBAAECgf9hweysw0tnqH7EwEkJhQVdYGlene4HAFyEpRwLq8Pn1rp4UKawJMlTbbgc/zuETAf7QJamBPSuTP0svoVXUoY0e6c/JBSpf6ob7n3S3rXNwCS6VE++UU9WfueGYislDkPoCRIurg0C1pcZwj8dy3Ftdh7vQBA5Kq9I0OlgzCHHW3PEfSELDLnKFr8aJybtTm764Aq21mM4Mx6//g1yZ/n9TVEoVq6RnguZMVu/EVewPir4VENQx7r/vwF/DQ5W/LyITaVutQ/tjQ+McuuCEEqL9j8BFNIPTqNu5+EFjytMdGiVJXP7f+Ogmiy4QzsNNoS6I1HCYwQETsp223SPjQUCgYEA6mrNyTHBgqHx0ZuT3mjgNK6pJEASW4dGOFSDSG1g+zEwbJ5vQHOCXlgk3w2ANLwRhFP31kzlnhcNIh94IBz8zBL4uYhSmUgSzCxGa2+FXZ6CE1qHfzdZis2j9YAhcteu9j0pQP1YzDR7z65DA7KojcR5slN6AqOz5Y9+699W9hcCgYEAynKvpQblnPPexYIPG0f2F+O9fMxHjo4Bq15e3992gsJtRdcgI6rvBtNZ6r761aXhrb9111X924r6WPX+VfLix1FvnImUlfE7MZv0VqGFGUCFrVbsdETjGlW1W8s75TLHyW6xpwnhwnMmFPCq3IV/QJgQ81g78CRJwXbRVtUuFIsCgYAEYbSxAw4T7AUCHv9Xk+xE79LXi58MOO4WFXZSv0Cl0ViPXzLDKKWSL+GYjb8MvUsyhwNF7TAJkXK8ZYwwRXpwMhaWGTc6CD/ZsyYp0e7TPig+Rl3sAdPZpVhgOWHmrKNnlOMVhObJAl4iFqbIBenipH6F18ubCwZMzy7XJ9iPRwKBgQCd05MDQME4/xYpPB+y0QMV1MIgzNDsXeEHTGcCeR/XCORPkkrIA7acx6BN1d2POecaoSypV6y0v0A0onJJZzVM1jwA+XERBCN1pXNzJjCxYw/T9vQYIKw8F51vlp13LYN7kgSFiLqr8UE7CfTqPljabrKoQ51WtbOaU5sX6tIlyQKBgQDU/ZBa26vYqcEacje9WGXNSlf7L+HQKDPL1jx4Z7LXlDxIHbnpxD/Soqm1TAJkqUwuRBzrzK5xJhk1Vzh5p3p6BD3CCVqBg3KOPLh5aVI6vBletHV3Vhfxh5PvCaL9WeylPMyOqBI6aTiHQDelKIKAN+QRmue8mI3i9fhMaZMk1A\\=\\=";
-
 
     // 加密算法
     private final static String encrypt_arithmetic = "RSA/ECB/PKCS1Padding";
@@ -53,8 +47,9 @@ public class RSAHelperUtil {
 
     static {
         try {
-            privateKey = getPrivateKey(private_key);
-            publicKey = getPublicKey(public_key);
+            Account account = new Account();
+            privateKey = getPrivateKey(account.getPrivateKey());
+            publicKey = getPublicKey(account.getPublicKey());
         } catch (Exception e) {
             e.printStackTrace();
         }

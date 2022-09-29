@@ -1,26 +1,24 @@
 package org.example.utils;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.example.pojo.Account;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * HTTP请求工具类
  *
- * @author: 苦瓜不苦
- * @date: 2021/6/9 10:57
+ * @author 苦瓜不苦
+ * @date 2021/6/9 10:57
  **/
 public class HTTPUtil {
-
-    // 机构标识
-    public final static String insId = "INS15***00001";
-    // 操作员
-    public final static String operId = "wup***est";
 
 
     /**
@@ -59,20 +57,22 @@ public class HTTPUtil {
      */
     public static void post(String url, Map<String, Object> map, Map<String, Object> formMap, List<File> fileList) throws Exception {
         String jsonBody = JSON.toJSONString(map);
+        // 账户配置
+        Account account = new Account();
         // 签名信息
         String sign = RSAHelperUtil.generateSign(jsonBody);
         // 加密数据
         String encrypt = RSAHelperUtil.encrypt(jsonBody);
         // 加密后的请求参数
-        formMap = formMap == null ? new HashMap<>() : formMap;
-        formMap.put("insId", insId);
-        formMap.put("operId", operId);
+        formMap = Optional.ofNullable(formMap).orElse(new HashMap<>());
+        formMap.put("insId", account.getInsId());
+        formMap.put("operId", account.getOperId());
         formMap.put("sign", sign);
         formMap.put("encrypt", encrypt);
         // 发送http请求
         HttpRequest request = HttpRequest.post(url).form(formMap);
         // 文件
-        if (fileList != null && fileList.size() > 0) {
+        if (CollUtil.isNotEmpty(fileList)) {
             File[] files = fileList.toArray(new File[0]);
             request.form("file", files);
         }
