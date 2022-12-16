@@ -29,7 +29,7 @@ openssl rsa -in rsa_private_key_2048.pem -out rsa_public_key_2048.pem -pubout
 ```html
 当前测试项目中替换Account类中的账户和公私钥参数
 
-HttpApiDemoTest测试类中替换url地址,根据接口文档填入请求参数
+MainApi测试类中替换url地址,根据接口文档填入请求参数
 
 发送请求
 ```

@@ -21,9 +21,8 @@ public class HTTPUtil {
      *
      * @param url 请求地址
      * @param map 参与加密的请求参数
-     * @throws Exception
      */
-    public static void post(String url, Map<String, Object> map) throws Exception {
+    public static void post(String url, Map<String, Object> map) {
         String jsonBody = JSON.toJSONString(map);
         // 账户配置
         Account account = new Account();
